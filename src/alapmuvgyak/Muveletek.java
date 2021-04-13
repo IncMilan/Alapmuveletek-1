@@ -1,5 +1,13 @@
 package alapmuvgyak;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 public class Muveletek extends javax.swing.JFrame {
 
     /**
@@ -18,7 +26,7 @@ public class Muveletek extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        Muveletek = new javax.swing.ButtonGroup();
         pnlGyakorlas = new javax.swing.JPanel();
         lblFeladat = new javax.swing.JLabel();
         txtEredmeny = new javax.swing.JTextField();
@@ -203,6 +211,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.add(mnuFajlMegnyit);
 
         mnuFajlMent.setText("Ment");
+        mnuFajlMent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMentActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMent);
 
         mnuFajlMentesMaskent.setText("Mentés Másként...");
@@ -217,19 +230,19 @@ public class Muveletek extends javax.swing.JFrame {
         mnuMuvelet.setText("Műveletek");
 
         mnuMuveletOsszeadas.setText("Összeadás");
-        buttonGroup1.add(mnuMuveletOsszeadas);
+        Muveletek.add(mnuMuveletOsszeadas);
         mnuMuvelet.add(mnuMuveletOsszeadas);
 
         mnuMuveletKivonas.setText("Kivonás");
-        buttonGroup1.add(mnuMuveletKivonas);
+        Muveletek.add(mnuMuveletKivonas);
         mnuMuvelet.add(mnuMuveletKivonas);
 
         mnuMuveletSzorzas.setText("Szorzás");
-        buttonGroup1.add(mnuMuveletSzorzas);
+        Muveletek.add(mnuMuveletSzorzas);
         mnuMuvelet.add(mnuMuveletSzorzas);
 
         mnuMuveletOsztas.setText("Osztás");
-        buttonGroup1.add(mnuMuveletOsztas);
+        Muveletek.add(mnuMuveletOsztas);
         mnuMuvelet.add(mnuMuveletOsztas);
 
         jMenuBar1.add(mnuMuvelet);
@@ -278,6 +291,26 @@ public class Muveletek extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
+    private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Fájl Mentése");
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setCurrentDirectory(new File("."));
+        
+        int valasztottgomberteke = fc.showSaveDialog(this);
+        if(valasztottgomberteke == JFileChooser.APPROVE_OPTION){
+           File f = fc.getSelectedFile();
+           if (f.isDirectory()){
+               lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>könyvtár: " + f.getName() + "</html>");
+               try {
+                   Files.write(Paths.get(f.getPath()), "Statisztika:".getBytes());
+               } catch (IOException ex) {
+                   Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+        }
+    }//GEN-LAST:event_mnuFajlMentActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -307,6 +340,8 @@ public class Muveletek extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -317,10 +352,10 @@ public class Muveletek extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup Muveletek;
     private javax.swing.JButton btnEllenorzes;
     private javax.swing.JButton btnMegoldas;
     private javax.swing.JButton btnUj;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;

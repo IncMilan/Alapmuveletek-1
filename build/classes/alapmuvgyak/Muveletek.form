@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.ButtonGroup" name="Muveletek">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
@@ -20,6 +20,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ment"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFajlMentActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuFajlMentesMaskent">
               <Properties>
@@ -44,7 +47,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#xd6;sszead&#xe1;s"/>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="Muveletek"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -52,7 +55,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kivon&#xe1;s"/>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="Muveletek"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -60,7 +63,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Szorz&#xe1;s"/>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="Muveletek"/>
                 </Property>
               </Properties>
             </MenuItem>
@@ -68,7 +71,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Oszt&#xe1;s"/>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="Muveletek"/>
                 </Property>
               </Properties>
             </MenuItem>
