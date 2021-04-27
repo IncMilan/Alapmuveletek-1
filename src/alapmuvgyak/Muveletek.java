@@ -6,20 +6,35 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
+
+    String mentettFajl;
+    int osszKerdesSzama = 0;
+    int szorzasKerdesekSzama = 0, osztasKerdesekSzama = 0;
+
+    int osszProbakSzama = 0;
+    int szorzasProbakSzama = 0, osztasProbakSzama = 0;
+    
+    JLabel[] lblTomb;
+    String[] lblTextTomb;
 
     /**
      * Creates new form Muveletek
      */
     public Muveletek() {
         initComponents();
+        lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        lblTextTomb = new String[]{"Össz Probálkozások száma: ", "Össz Probálkozások száma: ", "Összeadás: ", "Összeadás: ", "Kivonás: ", "Kivonás: ", "Osztás: ", "Osztás: ", "Szorzás: ", "Szorzás: "};
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +55,7 @@ public class Muveletek extends javax.swing.JFrame {
         btnMegoldas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblOsszKerdes = new javax.swing.JLabel();
-        lbllblOsszProba = new javax.swing.JLabel();
+        lblOsszProba = new javax.swing.JLabel();
         lblEredmeny = new javax.swing.JLabel();
         lblOsszeadKerdes = new javax.swing.JLabel();
         lblKivonasKerdes = new javax.swing.JLabel();
@@ -123,8 +138,8 @@ public class Muveletek extends javax.swing.JFrame {
         lblOsszKerdes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblOsszKerdes.setText("Össz kérdések száma: 1");
 
-        lbllblOsszProba.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbllblOsszProba.setText("Össz Probálkozások száma: 1");
+        lblOsszProba.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblOsszProba.setText("Össz Probálkozások száma: 1");
 
         lblEredmeny.setText("Eredmény: 0 %");
 
@@ -173,7 +188,7 @@ public class Muveletek extends javax.swing.JFrame {
                             .addComponent(lblSzorzasProba, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblOsszeadProba, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblOsztasProba, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbllblOsszProba, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblOsszProba, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -185,7 +200,7 @@ public class Muveletek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOsszKerdes)
-                    .addComponent(lbllblOsszProba))
+                    .addComponent(lblOsszProba))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -257,6 +272,11 @@ public class Muveletek extends javax.swing.JFrame {
 
         mnuMuveletOsztas.setText("Osztás");
         Muveletek.add(mnuMuveletOsztas);
+        mnuMuveletOsztas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMuveletOsztasActionPerformed(evt);
+            }
+        });
         mnuMuvelet.add(mnuMuveletOsztas);
 
         jMenuBar1.add(mnuMuvelet);
@@ -405,12 +425,52 @@ public class Muveletek extends javax.swing.JFrame {
             File f = fc.getSelectedFile();
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fájl Neve: " + f.getName() + "</html>");
             
+            String fn = f.getPath();
+            Path path = Paths.get(fn);
+            try{
+                // byte[] bajtTomb = Files.readAllBytes(path);
+                
+                List<String> stringlista = Files.readAllLines(path);
+                 /*2.: */
+                int lblIndex = 0;
+                for (int i = 0; i < stringlista.size(); i++) {
+                    String egySor = stringlista.get(1);
+                    String[] adatok = egySor.split(": ");
+                    JLabel lbl = lblTomb[lblIndex + 1];//lblOsszProba;
+                    lbl.setText(lblTextTomb[lblIndex + 1] + adatok[2]);
+                    adatok = adatok[1].split(" ");
+                    lbl = lblTomb[lblIndex];
+                    lbl.setText(lblTextTomb[lblIndex] + adatok[0]);
+                    lblIndex += 2;
+                }
+
+                int temp = 67;
+                } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }else{
             JOptionPane.showMessageDialog(this, "A Megnyitás megszakítva", "A MEGNYITÁS SIKERTELEN VOLT!", JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
+
+    private void mnuMuveletOsztasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMuveletOsztasActionPerformed
+        int oszto, osztando;
+        boolean jo;
+        do{
+            oszto =(int)(Math.random()*101);
+            osztando =(int)(Math.random()*101);
+            jo = oszto !=0 && osztando % oszto == 0;
+        }while(!jo);
+        lblFeladat.setText(osztando + " / " + oszto + " = ");
+        
+        osszKerdesSzama++;
+        lblOsszKerdes.setText("Össz Kérdések száma: " + osszKerdesSzama);
+        
+        osszKerdesSzama++;
+        lblOsztasKerdes.setText("Osztás: " + osszKerdesSzama);
+    }//GEN-LAST:event_mnuMuveletOsztasActionPerformed
     
     /**
      * @param args the command line arguments
@@ -465,6 +525,7 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JLabel lblKivonasKerdes;
     private javax.swing.JLabel lblKivonasProba;
     private javax.swing.JLabel lblOsszKerdes;
+    private javax.swing.JLabel lblOsszProba;
     private javax.swing.JLabel lblOsszeadKerdes;
     private javax.swing.JLabel lblOsszeadProba;
     private javax.swing.JLabel lblOsztasKerdes;
@@ -472,7 +533,6 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JLabel lblSzorzasKerdes;
     private javax.swing.JLabel lblSzorzasProba;
     private javax.swing.JLabel lblValasz;
-    private javax.swing.JLabel lbllblOsszProba;
     private javax.swing.JMenu mnuFajl;
     private javax.swing.JMenuItem mnuFajlKilep;
     private javax.swing.JMenuItem mnuFajlMegnyit;
